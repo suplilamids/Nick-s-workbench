@@ -1,116 +1,185 @@
 ﻿using System;
-namespace Progam
+
+namespace HelloWorld
 {
     class Program
     {
+        
+        
         static void Main(string[] args)
         {
-            char nadaljevanje = 'd';
-                
+            char nadaljevanje = 'y';
             do
             {
-                Console.WriteLine("Prosimo vnesite mejalno izbiro za ( 1 -EUR v GBP,  2 -GBP v EUR, 0 -prekinitev izvajanja ");
-                Console.Write("Izbira:  ");
+                Console.WriteLine("Write a number between 10 and 1000 .");
+                int stevilo = int.Parse(Console.ReadLine());
                 
-                int izbira = int.Parse(Console.ReadLine());
+                Console.WriteLine();
+                Console.WriteLine("Input: " + stevilo);
+                Console.WriteLine();
 
-                if (izbira == 1)       // eur v gbp
+                
+                //logic for number of devisors
+                int steviloDeliteljev = StejeDelitelje(stevilo);
+                Console.WriteLine("The number of divisors: " + steviloDeliteljev);
+                Console.WriteLine();
+                
+                //logic for writing all deviders
+                List<int> delitelji = VsiDelitelji(stevilo);
+                Console.WriteLine("Deviders for number " + stevilo + " are:   " + string.Join(", ", delitelji));
+                Console.WriteLine();
+                
+                //logic for prime number
+                bool prastevilo = PraSteviloAliNe(stevilo);
+                if (prastevilo == true)
+                {
+                    Console.WriteLine("The number is PRIME NUMBER.");
+                }
+                else if (prastevilo == false)
+                {
+                    Console.WriteLine("The number is not PRIME NUMBER.");
+                }
+                Console.WriteLine();
+                
+                //Special PRIME NUMBER
+
+                bool posebnoPrastevilo = PosebnoPraAliNe(stevilo);
+                if (posebnoPrastevilo == true)
                 {
                     Console.WriteLine();
-                    Console.WriteLine("Prosimo vnesite EUR za menjavo v GBP");
-                    Console.Write("EUR: ");
-
-                    double eur = double.Parse(Console.ReadLine());
-                    double gbp = eur * 0.83;
-
+                    Console.WriteLine("The number is SPECIAL PRIME NUMBER.");
+                    Console.WriteLine("A Prime Number is a Special Prime Number when we can add two consecutive Prime Numbers + 1 and obtain the given Prime Number.");
                     Console.WriteLine();
-                    Console.WriteLine("Za " + eur + " EUR se izplača " + gbp + " GBP");
-
-                    int[] denominations = { 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
-                    string[] labels =
-                    {
-                        "100 GBP", "50 GBP", "20 GBP", "10 GBP", "5 GBP", "2 GBP", "1 GBP", "50 penija", "20 penija",
-                        "10 penija", "5 penija", "2 penija", "1 penij"
-                    };
-
-                    Console.WriteLine("GBP: ");
-
-                    int pennies = (int)(gbp * 100);
-                    for (int i = 0; i < denominations.Length; i++)
-                    {
-                        int count = pennies / denominations[i];
-                        if (count > 0)
-                        {
-                            Console.WriteLine($"{labels[i]}: {count}");
-                            pennies %= denominations[i];
-                        }
-                    }
-
-                
-                    Console.WriteLine();
-                    Console.WriteLine("Ali zelite opraviti ponovno menjavo");
-                    Console.Write("d za DA, n za NE:  ");
-                    nadaljevanje = char.Parse(Console.ReadLine());
-                    Console.WriteLine();
+                   
                 }
-                
-                if (izbira == 2)     //  gbp v eur
+                else if (posebnoPrastevilo == false)
                 {
-                    Console.WriteLine();
-                    Console.WriteLine("Prosimo vnesite EUR za menjavo v GBP");
-                    Console.Write("EUR: ");
-
-                    double eur = double.Parse(Console.ReadLine());
-                    double gbp = eur * 0.83;
-
-                    Console.WriteLine();
-                    Console.WriteLine("Za " + eur + " EUR se izplača " + gbp.ToString("0.00") + " GBP");
-
-                    int[] denominations = { 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1 };
-                    string[] labels =
-                    {
-                        "100 GBP", "50 GBP", "20 GBP", "10 GBP", "5 GBP", "2 GBP", "1 GBP", "50 penijev", "20 penijev",
-                        "10 penijev", "5 penijev", "2 penija", "1 penij"
-                    };
-
-                    Console.WriteLine("GBP: ");
-
-                    
-                    int pennies = (int)Math.Round(gbp * 100);
-                    for (int i = 0; i < denominations.Length; i++)
-                    {
-                        int count = pennies / denominations[i];
-                        if (count > 0)
-                        {
-                            Console.WriteLine($"{labels[i]}: {count}");
-                            pennies %= denominations[i];
-                        }
-                    }
-                    
-                    
-                
-                    Console.WriteLine();
-                    Console.WriteLine("Ali zelite opraviti ponovno menjavo");
-                    Console.Write("d za DA, n za NE:  ");
-                    nadaljevanje = char.Parse(Console.ReadLine());
+                    Console.WriteLine("The number is not SPECIAL PRIME NUMBER.");
                     Console.WriteLine();
                 }
-                
-                if (izbira == 0)  // prekinitev izvajanja
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Hvala in nasvidenje.");
-                    
-                    Console.WriteLine();
-                    Console.WriteLine("Ali zelite opraviti ponovno menjavo");
-                    Console.Write("d za DA, n za NE:  ");
-                    nadaljevanje = char.Parse(Console.ReadLine());
-                    Console.WriteLine();
-                    
-                }
+                Console.WriteLine();
                 
                 
-            } while (nadaljevanje == 'd');
+                
+                //logic for loop continue
+                Console.WriteLine();
+                Console.WriteLine("Do you want to continue?");
+                Console.Write("y for YES, n for NO:  ");
+                nadaljevanje = char.Parse(Console.ReadLine());
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+
+
+            } while (nadaljevanje == 'y');
         }
+
+        static int StejeDelitelje(int stevilo)
+        {
+            int stetje = 0;
+            for (int i = 1; i <= stevilo; i++)
+            {
+                if (stevilo % i == 0)
+                {
+                    stetje++;
+                }
+            }
+            return stetje;
+        }
+
+
+        static List<int> VsiDelitelji(int stevilo)
+        {
+            List<int> delitelji = new List<int>();
+            for (int i = 1; i <= stevilo; i++)
+            {
+                if (stevilo % i == 0)
+                {
+                    delitelji.Add(i);
+                }
+            }
+            return delitelji;
+        }
+
+
+        static bool PraSteviloAliNe(int stevilo)
+        {
+            if (stevilo < 2)
+                return false;
+
+            for (int i = 2; i <= Math.Sqrt(stevilo); i++)
+            {
+                if (stevilo % i == 0)
+                    return false;
+            }
+            return true;
+        }
+
+
+        static bool PosebnoPraAliNe(int stevilo)
+        {
+            // First check if the number is a prime number
+            if (!PraSteviloAliNe(stevilo))
+                return false;
+
+            // Find all prime numbers smaller than the number
+            List<int> prastevila = NajdiVsaPrastevila(stevilo);
+
+            // Check consecutive prime pairs
+            for (int i = 0; i < prastevila.Count - 1; i++)
+            {
+                if (prastevila[i] + prastevila[i + 1] + 1 == stevilo)
+                {
+                    Console.WriteLine($"Note: This is a special prime number because the numbers {prastevila[i]} + {prastevila[i + 1]} + 1 equal {stevilo}.");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        static List<int> NajdiVsaPrastevila(int max)
+        {
+            List<int> prastevila = new List<int>();
+            for (int i = 2; i < max; i++)
+            {
+                if (PraSteviloAliNe(i))
+                {
+                    prastevila.Add(i);
+                }
+            }
+            return prastevila;
+        }
+        
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
